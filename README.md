@@ -1,69 +1,20 @@
-# React + TypeScript + Vite
+# Skip the stress, decode the mess - with DecodeMyCode
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DecodeMyCode bridges the gap between complex code and clear understanding. Whether you're a student struggling with algorithms, an educator creating tutorials, or a developer onboarding teammates, our AI-powered tool generates plain-English explanations and customizable flowcharts that make any code instantly comprehensible.
 
-Currently, two official plugins are available:
+## 🚀 Features (MVP)
+- ⌨️ Paste any code into the editor  
+- 🔑 Enter your **Gemini API key** (⚠️ stays local in browser, never stored in servers)  
+- ⚡ Hit **Generate** -> get:
+  - Line-by-line explanation (plain English)  
+  - Overall summary of the code
+  - Visual flowchart of code logic  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 👥 Who is this for?
+- **Students & New Learners**: learn faster by turning confusing code into clear explanations and diagrams.  
+- **Content Creators & Educators**: auto-generate step-by-step breakdowns and visuals for tutorials, blogs, or courses.  
+- **Organizations & Teams**: speed up **knowledge transfer (KT)** and onboarding by generating shareable explanations of existing code.  
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🏆 Project Context
+This project was built for the **Gemini & Firebase Buildathon**, organized by **TFUG Ghaziabad x Opstree Solutions** in collaboration with **Google for Developers**.  
