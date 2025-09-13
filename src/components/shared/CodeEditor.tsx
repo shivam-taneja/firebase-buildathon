@@ -24,7 +24,7 @@ function CodeEditor({ value, onChange, className }: CodeEditorProps) {
     )}>
       <Editor
         height="100%"
-        defaultLanguage="javascript"
+        defaultLanguage="typescript"
         className="min-h-[400px]"
         value={value}
         onChange={handleChange}

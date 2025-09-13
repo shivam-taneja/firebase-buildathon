@@ -13,11 +13,24 @@ import ResultComponent from '@/components/shared/ResultComponent';
 import { useGeminiStore } from '@/store/site';
 import type { CodeAnalysisResult } from '@/types/explanation';
 
-const sampleCode = `function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n-1) + fibonacci(n-2);
-}
-`;
+const sampleCode = `const getTypeColor = (type: string) => {
+  switch (type) {
+    case "function-declaration":
+      return "bg-primary/10 text-primary border-primary/20";
+    case "variable-declaration":
+      return "bg-success/10 text-success border-success/20";
+    case "loop":
+      return "bg-warning/10 text-warning border-warning/20";
+    case "condition":
+      return "bg-destructive/10 text-destructive border-destructive/20";
+    case "operation":
+      return "bg-accent text-accent-foreground border-accent";
+    case "return":
+      return "bg-primary/10 text-primary border-primary/20";
+    default:
+      return "bg-muted text-muted-foreground border-muted";
+  }
+};`;
 
 const Generate = () => {
   const [code, setCode] = useState("");
