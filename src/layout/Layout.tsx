@@ -9,14 +9,10 @@ const Layout = () => {
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
-              to="/#generate"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById("generate");
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              to="/"
+              // onClick={(e) => {
+              //   e.preventDefault();
+              // }}
               className="flex items-center gap-2"
             >
               <Code className="h-6 w-6 text-primary" />

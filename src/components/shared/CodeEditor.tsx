@@ -1,4 +1,5 @@
 import Editor from '@monaco-editor/react';
+import { Loader2 } from 'lucide-react';
 
 import { cn } from "@/lib/utils";
 
@@ -28,6 +29,14 @@ function CodeEditor({ value, onChange, className }: CodeEditorProps) {
         value={value}
         onChange={handleChange}
         theme="vs-dark"
+        loading={
+          <div className="flex items-center justify-center min-h-[400px] w-full bg-[#1e1e1e]">
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="h-8 w-8 text-blue-500 animate-spin" />
+              <p className="text-sm text-gray-400 animate-pulse">Loading editor...</p>
+            </div>
+          </div>
+        }
         options={{
           minimap: { enabled: false },
           fontSize: 14,

@@ -1,12 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FlowchartEdge, FlowchartNode } from "@/types/explanation";
 import { Maximize2, Sparkles } from "lucide-react";
 import { useState } from "react";
-import ReactFlow, { Background, BackgroundVariant, Panel } from "reactflow";
 import "reactflow/dist/style.css";
-import { edgeTypes } from "./CustomEdges";
-import { nodeTypes } from "./CustomNodes";
 import "./flowchart.css";
 import FlowchartModal from "./FlowchartModal";
 
@@ -36,7 +33,7 @@ function FlowchartPanel({ nodes, edges }: FlowchartPanelProps) {
   const [showFullscreen, setShowFullscreen] = useState(false);
 
   return (
-    <Card className="animate-slide-up h-full overflow-hidden">
+    <Card className="animate-slide-up overflow-hidden">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -61,41 +58,6 @@ function FlowchartPanel({ nodes, edges }: FlowchartPanelProps) {
           </div>
         </div>
       </CardHeader>
-
-      <CardContent className="p-0 h-full">
-        <div className="relative h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
-          <ReactFlow
-            nodes={nodes || defaultFlowchart.nodes}
-            edges={edges || defaultFlowchart.edges}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            fitView
-            fitViewOptions={{ padding: 0.1 }}
-            className="rounded-b-lg"
-            proOptions={{ hideAttribution: true }}
-          >
-            <Background
-              variant={BackgroundVariant.Dots}
-              gap={16}
-              size={1}
-              color="#e2e8f0"
-            />
-            <Panel position="bottom-right" className="bg-transparent">
-              <div className="flex gap-1 opacity-70 hover:opacity-100 transition-opacity">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowFullscreen(true)}
-                  className="h-8 w-8 p-0 bg-white/80 backdrop-blur-sm border border-blue-200 hover:bg-blue-50"
-                  title="Open fullscreen"
-                >
-                  <Maximize2 className="h-4 w-4 text-blue-600" />
-                </Button>
-              </div>
-            </Panel>
-          </ReactFlow>
-        </div>
-      </CardContent>
 
       <FlowchartModal
         open={showFullscreen}
