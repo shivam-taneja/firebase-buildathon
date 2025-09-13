@@ -1,20 +1,20 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Hero from "./components/landing/Hero";
-import CoreFunctionality from "./components/landing/CoreFunctionality";
-import Features from "./components/landing/Features";
-import Audience from "./components/landing/Audience";
-import Footer from "./components/landing/Footer";
+import Layout from "./layout/Layout";
+import Landing from "./page/Landing";
 
 function App() {
   return (
-    <div className="bg-gray-900 text-white">
-      <Hero />
-      <CoreFunctionality />
-      <Features />
-      <Audience />
-      <Footer />
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Landing />} />
+        </Route>
+
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
