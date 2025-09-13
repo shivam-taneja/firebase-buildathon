@@ -1,0 +1,117 @@
+/* Custom React Flow Styles */
+.react-flow__node {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.react-flow__node:hover {
+  transform: translateY(-2px);
+}
+
+.react-flow__node.selected {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.react-flow__edge {
+  transition: all 0.2s ease;
+}
+
+.react-flow__edge:hover {
+  stroke-width: 3px !important;
+}
+
+.react-flow__edge.selected {
+  stroke-width: 3px !important;
+  stroke: #4f46e5 !important;
+}
+
+/* Custom arrow marker */
+.react-flow__arrowclosed {
+  fill: #6366f1;
+}
+
+/* Controls styling */
+.react-flow__controls {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.react-flow__controls-button {
+  background: white;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.react-flow__controls-button:hover {
+  background: #f3f4f6;
+  border-color: #6366f1;
+  color: #6366f1;
+}
+
+/* MiniMap styling */
+.react-flow__minimap {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Background patterns */
+.react-flow__background {
+  opacity: 0.6;
+}
+
+/* Panel styling */
+.react-flow__panel {
+  margin: 10px;
+}
+
+/* Custom node animations */
+@keyframes nodeAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.react-flow__node {
+  animation: nodeAppear 0.3s ease-out;
+}
+
+/* Edge animations */
+@keyframes edgeAppear {
+  from {
+    stroke-dasharray: 5;
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+.react-flow__edge-path {
+  animation: edgeAppear 0.5s ease-out;
+}
+
+/* Fullscreen modal enhancements */
+.flowchart-modal .react-flow__node {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.flowchart-modal .react-flow__edge {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .react-flow__controls {
+    bottom: 20px;
+    left: 20px;
+  }
+  
+  .react-flow__minimap {
+    width: 120px;
+    height: 80px;
+  }
+}
