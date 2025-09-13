@@ -1,16 +1,15 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useState } from 'react';
+
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 import ApiKeyModal from '@/components/shared/ApiKeyModal';
 import CodeEditor from '@/components/shared/CodeEditor';
-import ExplanationPanel from '@/components/shared/ExplanationPanel';
-import FlowchartPanel from '@/components/shared/Flowchart';
 import LoadingState from '@/components/shared/LoadingState';
 
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Zap } from 'lucide-react';
 
+import ResultComponent from '@/components/shared/ResultComponent';
 import { useGeminiStore } from '@/store/site';
 import type { CodeAnalysisResult } from '@/types/explanation';
 
@@ -125,40 +124,11 @@ const Generate = () => {
 
   if (showResults) {
     return (
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex flex-col sticky animate-slide-up top-36">
-            <h2 className="text-lg font-semibold text-foreground flex items-center gap-2 mb-4 flex-shrink-0">
-              <div className="w-2 h-2 rounded-full bg-muted-foreground" />
-              Original Code
-            </h2>
-            <Card className="p-0 flex-1 h-full">
-              <CodeEditor
-                value={code}
-                onChange={setCode}
-                className="border-0 h-full"
-              />
-            </Card>
-          </div>
-
-          <div className="flex flex-col ">
-            <h2 className="text-lg font-semibold text-foreground flex items-center gap-2 mb-4 flex-shrink-0">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              Analysis Results
-            </h2>
-            <div className="space-y-4 pr-4">
-              <FlowchartPanel
-                nodes={analysisResult?.flowchart.nodes}
-                edges={analysisResult?.flowchart.edges}
-              />
-              <ExplanationPanel
-                explanations={analysisResult?.explanations}
-                summary={analysisResult?.summary}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <ResultComponent
+        analysisResult={analysisResult}
+        code={code}
+        setCode={setCode}
+      />
     )
   }
 
