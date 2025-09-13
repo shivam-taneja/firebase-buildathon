@@ -1,13 +1,18 @@
 import { useState } from 'react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 import CodeEditor from '@/components/shared/CodeEditor';
 import ExplanationPanel from '@/components/shared/ExplanationPanel';
 import FlowchartPanel from '@/components/shared/Flowchart';
 import LoadingState from '@/components/shared/LoadingState';
+import ApiKeyModal from '@/components/shared/ApiKeyModal';
 
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Zap } from 'lucide-react';
+
+import type { CodeExplanationArray } from '@/types/explanation';
+import { useGeminiStore } from '@/store/site';
 
 const sampleCode = `function fibonacci(n) {
   if (n <= 1) return n;
@@ -19,17 +24,68 @@ const Generate = () => {
   const [code, setCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [explanations, setExplanations] = useState<CodeExplanationArray>([]);
+  const [showApiKeyModal, setShowApiKeyModal] = useState(false);
+  const { apiKey, setApiKey } = useGeminiStore()
 
-  const handleGenerate = async () => {
+  const handleGenerate = async (overrideApiKey?: string) => {
     if (!code.trim())
       return;
 
+    const keyToUse = overrideApiKey ?? apiKey;
+
+    if (!keyToUse) {
+      setShowApiKeyModal(true);
+      return;
+    }
+
     setIsLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Initialize Gemini AI
+      const genAI = new GoogleGenerativeAI(keyToUse);
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.5-flash-lite",
+        generationConfig: {
+          temperature: 0.1,
+          topP: 0.8,
+          topK: 40,
+          maxOutputTokens: 8192,
+          responseMimeType: "application/json",
+        },
+      });
 
-    setIsLoading(false);
-    setShowResults(true);
+      const prompt = `Analyze the following code and provide a line-by-line explanation. Return a JSON array where each object has:
+- lineNumber: number (starting from 1)
+- code: string (exact code on that line)
+- explanation: string (simple, short explanation)
+- type: string (function-declaration, variable-declaration, loop, condition, operation, block-end, return, import, export, comment, or other)
+
+Code to analyze:
+${code}`;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+
+      // Parse the JSON response
+      const parsedExplanations: CodeExplanationArray = JSON.parse(text);
+      setExplanations(parsedExplanations);
+
+    } catch (error) {
+      console.error('Error generating explanation:', error);
+      // You might want to show an error toast here
+    } finally {
+      setIsLoading(false);
+      setShowResults(true);
+    }
+  };
+
+  const handleApiKeySave = (key: string) => {
+    setApiKey(key);
+    setShowApiKeyModal(false);
+    // Immediately call generate with the new key to avoid stale-closure issues
+    handleGenerate(key);
   };
 
   if (showResults) {
@@ -57,7 +113,7 @@ const Generate = () => {
             </h2>
             <div className="grid grid-rows-2 gap-4 h-[calc(100%-3rem)]">
               <FlowchartPanel />
-              <ExplanationPanel />
+              <ExplanationPanel explanations={explanations} />
             </div>
           </div>
         </div>
@@ -108,7 +164,7 @@ const Generate = () => {
             {/* Generate Button */}
             <div className="flex justify-center pt-4">
               <Button
-                onClick={handleGenerate}
+                onClick={() => handleGenerate()}
                 disabled={!code.trim() || isLoading}
                 size="lg"
                 className="px-8 py-6 text-lg font-semibold hover:bg-primary-hover transition-all duration-200  hover:scale-105 ease-in-out"
@@ -122,6 +178,12 @@ const Generate = () => {
           </div>
         </main>
       )}
+
+      <ApiKeyModal
+        open={showApiKeyModal}
+        onOpenChange={setShowApiKeyModal}
+        onSave={handleApiKeySave}
+      />
     </>
   )
 }

@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { CodeExplanationArray } from "@/types/explanation";
 
 // Mock explanation data
 const mockExplanations = [
@@ -78,7 +79,14 @@ const getTypeColor = (type: string) => {
   }
 };
 
-function ExplanationPanel() {
+interface ExplanationPanelProps {
+  explanations?: CodeExplanationArray;
+}
+
+function ExplanationPanel({ explanations }: ExplanationPanelProps) {
+  if (!explanations)
+    return null;
+
   return (
     <Card className="h-full animate-slide-up" style={{ animationDelay: "150ms" }}>
       <CardHeader className="pb-3">
@@ -88,7 +96,7 @@ function ExplanationPanel() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 max-h-[300px] overflow-y-auto">
-        {mockExplanations.map((item, index) => (
+        {explanations.map((item, index) => (
           <div
             key={item.lineNumber}
             className="group p-3 rounded-lg border bg-card hover:bg-accent/50 transition-all duration-200 animate-fade-in"
