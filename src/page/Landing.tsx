@@ -231,7 +231,7 @@ const Generate = () => {
                   {!code.trim() && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/5 backdrop-blur-sm rounded-2xl">
                       <div className="text-center space-y-3">
-                        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                        <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center cursor-pointer" onClick={() => setCode("sample")}>
                           <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                           </svg>
