@@ -1,11 +1,8 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button';
 import { Code } from 'lucide-react';
 
 const Layout = () => {
-  const navigate = useNavigate();
-
   return (
     <>
       <header className="border-b bg-card/50 border-accent-foreground/50 backdrop-blur-sm sticky top-0 z-50">
