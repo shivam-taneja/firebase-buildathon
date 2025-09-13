@@ -1,5 +1,5 @@
 import type { CodeAnalysisResult } from '@/types/explanation';
-import { useEffect, type Dispatch, type SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import { Card } from '../ui/card';
 import CodeEditor from './CodeEditor';
 import ExplanationPanel from './ExplanationPanel';
@@ -14,14 +14,6 @@ const ResultComponent = ({
   analysisResult: CodeAnalysisResult | null,
   setCode: Dispatch<SetStateAction<string>>
 }) => {
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative ">
